@@ -407,7 +407,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Crafteo", jPanel3);
+        jTabbedPane1.addTab("Crear", jPanel3);
 
         jLabel15.setText("Amigos");
 
@@ -479,7 +479,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -592,6 +592,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jTreeJuegoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTreeJuegoMouseClicked
          
+        if (evt.isMetaDown()) {
+            
+            int row = jTreeJuego.getClosestRowForLocation(evt.getX(), evt.getY());
+            jTreeJuego.setSelectionRow(row);
+            Object component = jTreeJuego.getSelectionPath().getLastPathComponent();
+            nSeleccionado = (DefaultMutableTreeNode) component;
+            if (nSeleccionado.getUserObject() instanceof Jugadores) {
+                player = (Jugadores) nSeleccionado.getUserObject();
+                jPM.show(evt.getComponent(),evt.getX(), evt.getY());
+            }
+
+        }
+        
     }//GEN-LAST:event_jTreeJuegoMouseClicked
 
     /**
@@ -685,6 +698,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     ArrayList<Categoria> categ = new ArrayList();
     ArrayList<Alimento> alimen = new ArrayList();
     ArrayList<Billetera> billet = new ArrayList();
+    
+    DefaultMutableTreeNode nSeleccionado;
+    Jugadores player;
 
     private void cargarList(){
         DefaultListModel modelo = (DefaultListModel) jlistajuego.getModel();
@@ -740,5 +756,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
          
         
     }
-    
+    private void opcion_eliminarActionPerformed(java.awt.event.ActionEvent evt) {
+
+        DefaultTreeModel mod  = (DefaultTreeModel) jTreeJuego.getModel();
+        mod.removeNodeFromParent(nSeleccionado);
+        mod.reload();
+
+    }
 }
