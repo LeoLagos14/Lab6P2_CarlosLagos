@@ -27,6 +27,38 @@ public class MenuPrincipal extends javax.swing.JFrame {
         DefaultComboBoxModel model = (DefaultComboBoxModel) jcbCategoria.getModel();
         AgregarJugadores();
         
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorias de Alimentos");
+        
+        for (int i = 0; i < categ.size(); i++) {
+            
+            DefaultMutableTreeNode nodoCateg;
+            nodoCateg = new DefaultMutableTreeNode(categ.get(i));
+
+            for (int j = 0; j < alimen.size(); j++) {
+                
+                if (alimen.get(j).getCat() == categ.get(i)) {
+                    
+                    DefaultMutableTreeNode nodoAlimento;
+                    nodoAlimento = new DefaultMutableTreeNode(alimen.get(j));
+                    
+                    for (int k = 0; k < players.size(); k++) {
+                        
+                        if (players.get(k).getAlimento() == alimen.get(j)) {
+                            
+                            DefaultMutableTreeNode nodo_jugador;
+                            nodo_jugador = new DefaultMutableTreeNode(players.get(k));
+                            nodoAlimento.add(nodo_jugador);
+                        }
+                    }//fin for 3
+                    nodoCateg.add(nodoAlimento);
+                }
+            }//fin for 2
+            root.add(nodoCateg);
+        }//fin for 1
+        DefaultTreeModel modelo = new DefaultTreeModel(root);
+        modelo.reload();
+        jTreeJuego.setModel(modelo);
+
         
         
     }
@@ -40,6 +72,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPM = new javax.swing.JPopupMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -100,6 +133,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTreeJuego.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTreeJuego.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTreeJuegoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTreeJuego);
 
         jAlimentar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -552,6 +590,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBCrearAlMouseClicked
 
+    private void jTreeJuegoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTreeJuegoMouseClicked
+         
+    }//GEN-LAST:event_jTreeJuegoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -610,6 +652,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JList<String> jListAmigos;
     private javax.swing.JList<String> jListTienda1;
     private javax.swing.JList<String> jListTienda2;
+    private javax.swing.JPopupMenu jPM;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
