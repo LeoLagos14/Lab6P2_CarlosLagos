@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -25,6 +27,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         DefaultComboBoxModel model = (DefaultComboBoxModel) jcbCategoria.getModel();
         AgregarJugadores();
         
+        
+        
     }
 
     /**
@@ -40,7 +44,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jTreeJuego = new javax.swing.JTree();
         jAlimentar = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -94,7 +98,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jLabel2.setText("Pancho - Colindrez ");
 
-        jScrollPane1.setViewportView(jTree1);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        jTreeJuego.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jTreeJuego);
 
         jAlimentar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jAlimentar.setText("Alimentar");
@@ -615,7 +621,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTree jTreeJuego;
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbComprar1;
     private javax.swing.JButton jbComprar2;
@@ -667,10 +673,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
         players.add(new Jugadores("Kenneth", "k21", 6, 600, alimen.get(0)));
         players.add(new Jugadores("Leo", "Leo14", 12, 1200, alimen.get(1)));
         
+        for (Alimento alimento : alimen) {
+            DefaultListModel model = (DefaultListModel)jListTienda1.getModel();
+            model.addElement(alimento);
+        }
+        for (Categoria categoria : categ) {
+            DefaultComboBoxModel model = (DefaultComboBoxModel)jcbCategoria.getModel();
+            model.addElement(categoria);
+        }
+        for (Billetera billetera : billet) {
+            DefaultListModel model = (DefaultListModel)jListTienda2.getModel();
+            model.addElement(billetera);
+        }
+        
         DefaultListModel modelo = new DefaultListModel();
+        
         for (Jugadores player : players) {
             modelo.addElement(players.toString());
         }
+        
+        
         jlistajuego.setModel(modelo);
+         
+        
     }
+    
 }
